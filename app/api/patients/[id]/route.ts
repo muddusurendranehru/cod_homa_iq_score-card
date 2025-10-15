@@ -5,10 +5,10 @@ import { query } from '@/lib/db'
 // GET /api/patients/[id] - Fetch single patient
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await params
+    const { id } = await context.params
 
     const result = await query(
       `SELECT id, name, age, sex, phone, email, created_at, updated_at
@@ -41,10 +41,10 @@ export async function GET(
 // PUT /api/patients/[id] - Update patient
 export async function PUT(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await params
+    const { id } = await context.params
     const body = await request.json()
     const { name, age, sex, phone, email } = body
 
@@ -116,10 +116,10 @@ export async function PUT(
 // DELETE /api/patients/[id] - Delete patient
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await params
+    const { id } = await context.params
 
     const result = await query(
       `DELETE FROM homa_patients
